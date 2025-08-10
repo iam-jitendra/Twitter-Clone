@@ -20,6 +20,7 @@ supervisorctl: Command-line tool for controlling processes (e.g., restarting fro
 code architecture
 The application's code architecture follows a monolithic frontend approach, with core logic and components centralized for simplicity and efficiency in this initial phase.
 
+
 /app/
 ├── frontend/        # React frontend
 │   ├── package.json
@@ -36,6 +37,8 @@ The application's code architecture follows a monolithic frontend approach, with
 ├── tests/
 ├── scripts/
 └── README.md
+
+
 frontend/src/App.js: This file serves as the main entry point for the React application. It was entirely rewritten to establish the overall layout, including the primary navigation, theme toggling (dark/light), and integration of the core pages (Home, Explore, Notifications, Messages, Profile). This file orchestrates the high-level structure of the X clone UI.
 frontend/src/components.js: This file is crucial as it encapsulates all custom React components used throughout the application, adhering to the "monolithic frontend file" guideline. This includes components for the Tweet Composer, Tweet Feed, individual Tweet cards, Search bar, Trending topics, User Suggestions, and navigation elements. By centralizing components here, the architecture maintains a streamlined codebase for initial development.
 frontend/src/App.css: This file contains the primary CSS styling, likely for global styles and specific components not managed by TailwindCSS utility classes, or for overrides. It's essential for implementing the authentic X branding, dark/light theme, and overall visual consistency.
