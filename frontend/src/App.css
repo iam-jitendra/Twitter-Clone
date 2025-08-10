@@ -1,38 +1,956 @@
-.App {
-    text-align: center;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.4;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* App Container */
+.app {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+.app.dark {
+  background-color: #000000;
+  color: #e7e9ea;
+}
+
+.app.light {
+  background-color: #ffffff;
+  color: #0f1419;
+}
+
+.app-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 260px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #2f3336;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background-color: inherit;
+  z-index: 100;
+}
+
+.app.light .sidebar {
+  border-right: 1px solid #eff3f4;
+}
+
+.sidebar-header {
+  margin-bottom: 32px;
+}
+
+.logo {
+  padding: 12px;
+}
+
+.logo-x {
+  font-size: 32px;
+  font-weight: bold;
+  color: #e7e9ea;
+}
+
+.app.light .logo-x {
+  color: #0f1419;
+}
+
+.sidebar-menu {
+  flex: 1;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 2px;
+  border-radius: 24px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 20px;
+  font-weight: 400;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: rgba(231, 233, 234, 0.1);
+}
+
+.app.light .menu-item:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+}
+
+.menu-item.active {
+  font-weight: 700;
+}
+
+.menu-icon {
+  margin-right: 20px;
+  font-size: 24px;
+}
+
+.menu-label {
+  font-size: 20px;
+}
+
+.tweet-button {
+  background-color: #1d9bf0;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin: 16px 0;
+  transition: background-color 0.2s;
+}
+
+.tweet-button:hover {
+  background-color: #1a8cd8;
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 24px;
+  transition: background-color 0.2s;
+}
+
+.sidebar-footer:hover {
+  background-color: rgba(231, 233, 234, 0.1);
+}
+
+.app.light .sidebar-footer:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.user-username {
+  font-size: 15px;
+  color: #71767b;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(231, 233, 234, 0.1);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  max-width: 600px;
+  border-right: 1px solid #2f3336;
+  min-height: 100vh;
+}
+
+.app.light .main-content {
+  border-right: 1px solid #eff3f4;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #2f3336;
+  z-index: 10;
+}
+
+.app.light .header {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #eff3f4;
+}
+
+.header-content {
+  padding: 16px;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Tweet Composer */
+.tweet-composer {
+  border-bottom: 1px solid #2f3336;
+  padding: 16px;
+}
+
+.app.light .tweet-composer {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.composer-content {
+  display: flex;
+  gap: 12px;
+}
+
+.composer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.composer-input-area {
+  flex: 1;
+}
+
+.composer-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 20px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  placeholder-color: #71767b;
+}
+
+.composer-textarea::placeholder {
+  color: #71767b;
+}
+
+.composer-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.composer-tools {
+  display: flex;
+  gap: 16px;
+}
+
+.tool-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.tool-button:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+}
+
+.composer-submit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.char-count {
+  font-size: 13px;
+  color: #71767b;
+}
+
+.char-count.warning {
+  color: #f4212e;
+}
+
+.post-button {
+  background-color: #1d9bf0;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.post-button:hover:not(:disabled) {
+  background-color: #1a8cd8;
+}
+
+.post-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Feed */
+.feed {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tweet */
+.tweet {
+  padding: 16px;
+  border-bottom: 1px solid #2f3336;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.app.light .tweet {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.tweet:hover {
+  background-color: rgba(231, 233, 234, 0.03);
+}
+
+.app.light .tweet:hover {
+  background-color: rgba(15, 20, 25, 0.03);
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.tweet-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.tweet-user-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 4px;
+}
+
+.tweet-display-name {
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.verified-badge {
+  color: #1d9bf0;
+  font-size: 16px;
+}
+
+.tweet-username,
+.tweet-timestamp {
+  color: #71767b;
+  font-size: 15px;
+}
+
+.tweet-menu {
+  background: none;
+  border: none;
+  color: #71767b;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.tweet-menu:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+  color: #1d9bf0;
+}
+
+.tweet-content {
+  font-size: 15px;
+  line-height: 1.3125;
+  margin-bottom: 12px;
+  margin-left: 52px;
+}
+
+.tweet-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 52px;
+  max-width: 425px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #71767b;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.action-button:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+  color: #1d9bf0;
+}
+
+.action-button.like:hover {
+  background-color: rgba(249, 24, 128, 0.1);
+  color: #f91880;
+}
+
+.action-button.like.active {
+  color: #f91880;
+}
+
+.action-button.retweet:hover {
+  background-color: rgba(0, 186, 124, 0.1);
+  color: #00ba7c;
+}
+
+.action-button.retweet.active {
+  color: #00ba7c;
+}
+
+.action-icon {
+  font-size: 16px;
+}
+
+.action-count {
+  font-size: 13px;
+}
+
+.tweet-views {
+  margin-left: auto;
+}
+
+.views-count {
+  color: #71767b;
+  font-size: 13px;
+}
+
+/* Right Sidebar */
+.right-sidebar {
+  width: 350px;
+  padding: 16px;
+  margin-left: 30px;
+}
+
+.search-bar {
+  margin-bottom: 16px;
+  position: sticky;
+  top: 16px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #2f3336;
+  border-radius: 24px;
+  background-color: #202327;
+  color: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+.app.light .search-input {
+  border: 1px solid #eff3f4;
+  background-color: #eff3f4;
+}
+
+.search-input::placeholder {
+  color: #71767b;
+}
+
+.search-input:focus {
+  border-color: #1d9bf0;
+  background-color: #000000;
+}
+
+.app.light .search-input:focus {
+  background-color: #ffffff;
+}
+
+.trending-section,
+.suggestions-section {
+  background-color: #16181c;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.app.light .trending-section,
+.app.light .suggestions-section {
+  background-color: #f7f9fa;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 800;
+  padding: 16px;
+  border-bottom: 1px solid #2f3336;
+}
+
+.app.light .section-title {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.trending-item,
+.suggestion-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #2f3336;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.app.light .trending-item,
+.app.light .suggestion-item {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.trending-item:hover,
+.suggestion-item:hover {
+  background-color: rgba(231, 233, 234, 0.03);
+}
+
+.app.light .trending-item:hover,
+.app.light .suggestion-item:hover {
+  background-color: rgba(15, 20, 25, 0.03);
+}
+
+.trending-item:last-child,
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.trending-topic {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.trending-posts {
+  color: #71767b;
+  font-size: 13px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.suggestion-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.suggestion-info {
+  flex: 1;
+}
+
+.suggestion-name {
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.suggestion-username {
+  color: #71767b;
+  font-size: 15px;
+}
+
+.follow-button {
+  background-color: #eff3f4;
+  color: #0f1419;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.follow-button:hover {
+  background-color: #d7dbdc;
+}
+
+/* Profile */
+.profile {
+  width: 100%;
+}
+
+.profile-header {
+  position: relative;
+}
+
+.profile-banner {
+  height: 200px;
+  background: linear-gradient(135deg, #1d9bf0, #8b5cf6);
+}
+
+.profile-info {
+  padding: 16px;
+  position: relative;
+}
+
+.profile-avatar {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: 4px solid #000000;
+  position: absolute;
+  top: -66px;
+  left: 16px;
+  object-fit: cover;
+}
+
+.app.light .profile-avatar {
+  border-color: #ffffff;
+}
+
+.profile-details {
+  margin-top: 72px;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-username {
+  color: #71767b;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  color: #71767b;
+  font-size: 14px;
+}
+
+.stat strong {
+  color: inherit;
+  font-weight: 700;
+}
+
+/* Explore */
+.explore-tabs {
+  display: flex;
+  border-bottom: 1px solid #2f3336;
+}
+
+.app.light .explore-tabs {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.tab {
+  flex: 1;
+  padding: 16px;
+  background: none;
+  border: none;
+  color: #71767b;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  border-bottom: 4px solid transparent;
+}
+
+.tab.active {
+  color: inherit;
+  font-weight: 700;
+  border-bottom-color: #1d9bf0;
+}
+
+.tab:hover {
+  background-color: rgba(231, 233, 234, 0.03);
+}
+
+.app.light .tab:hover {
+  background-color: rgba(15, 20, 25, 0.03);
+}
+
+/* Notifications */
+.notifications {
+  padding: 16px 0;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #2f3336;
+  gap: 12px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.app.light .notification-item {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.notification-item:hover {
+  background-color: rgba(231, 233, 234, 0.03);
+}
+
+.app.light .notification-item:hover {
+  background-color: rgba(15, 20, 25, 0.03);
+}
+
+.notification-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-text {
+  font-size: 15px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.notification-time {
+  color: #71767b;
+  font-size: 13px;
+}
+
+/* Messages */
+.messages {
+  height: 100%;
+}
+
+.messages-header {
+  padding: 16px;
+  border-bottom: 1px solid #2f3336;
+}
+
+.app.light .messages-header {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.messages-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #2f3336;
+  gap: 12px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.app.light .message-item {
+  border-bottom: 1px solid #eff3f4;
+}
+
+.message-item:hover {
+  background-color: rgba(231, 233, 234, 0.03);
+}
+
+.app.light .message-item:hover {
+  background-color: rgba(15, 20, 25, 0.03);
+}
+
+.message-item.unread {
+  background-color: rgba(29, 155, 240, 0.05);
+}
+
+.message-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.message-content {
+  flex: 1;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.message-name {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.message-username,
+.message-time {
+  color: #71767b;
+  font-size: 15px;
+}
+
+.message-text {
+  color: #71767b;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .right-sidebar {
+    display: none;
+  }
+  
+  .app-container {
+    max-width: 920px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 68px;
+  }
+  
+  .menu-label {
+    display: none;
+  }
+  
+  .main-content {
+    margin-left: 68px;
+  }
+  
+  .sidebar-footer .user-details {
+    display: none;
+  }
+  
+  .tweet-button {
+    padding: 16px 8px;
+    font-size: 0;
+  }
+  
+  .tweet-button::after {
+    content: "✏️";
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    border-right: none;
+    border-top: 1px solid #2f3336;
+    padding: 0;
+  }
+  
+  .app.light .sidebar {
+    border-top: 1px solid #eff3f4;
+  }
+  
+  .sidebar-header,
+  .tweet-button,
+  .sidebar-footer {
+    display: none;
+  }
+  
+  .sidebar-menu {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    flex: none;
+  }
+  
+  .menu-item {
+    margin: 0;
+    padding: 8px;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    margin-bottom: 60px;
+  }
+  
+  .menu-icon {
+    margin: 0;
+    font-size: 24px;
+  }
 }
